@@ -1,0 +1,7 @@
+title: Rebuild OS - Explorer Tweaks
+actions:
+  - !writeStatus: { status: "Applying Explorer Tweaks..." }
+
+  - !task: { path: 'rebuild\explorer\tasks\search.yml' }
+  - !task: { path: 'rebuild\explorer\tasks\start.yml' }
+  - !task: { path: 'rebuild\explorer\tasks\shell.yml' }

@@ -1,0 +1,73 @@
+title: Rebuild OS - Explorer Tweaks
+actions:
+  #
+  # Navigation Pane
+  #
+
+  - !run: {
+      exe: "reg",
+      args: 'add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{31C0DD25-9439-4F12-BF41-7FF4EDA38722}\PropertyBag /v ThisPCPolicy /t REG_SZ /d "Hide" /f',
+      option: "hide3dobjects",
+    }
+
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced'
+    value: "MultiTaskingAltTabFilter"
+    data: "3"
+    type: REG_DWORD
+
+  # Disable notifications from microsoft
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced'
+    value: "ShowSyncProviderNotifications"
+    data: "0"
+    type: REG_DWORD
+
+  # Show more information when copying files
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\OperationStatusManager'
+    value: "EnthusiastMode"
+    data: "1"
+    type: REG_DWORD
+
+  # Do not use the search-based method when resolving shell shortcuts
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer'
+    value: "NoResolveSearch"
+    data: "1"
+    type: REG_DWORD
+  
+  # Disallow Online Tips
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer'
+    value: "AllowOnlineTips"
+    data: "1"
+    type: REG_DWORD
+
+  # Do not use the tracking-based method when resolving shell shortcuts
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer'
+    value: "NoResolveTrack"
+    data: "1"
+    type: REG_DWORD
+
+  # Launch to This PC instead of Quick access
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced'
+    value: "LaunchTo"
+    data: "1"
+    type: REG_DWORD
+
+  # Remove 'shortcut' text from shortcuts
+  - !registryValue:
+    path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\NamingTemplates'
+    value: "ShortcutNameTemplate"
+    data: '"%s.lnk"'
+    type: REG_SZ
+
+  # Disable auto folder discovery
+  - !registryValue:
+    path: 'HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell\Bags\AllFolders\Shell'
+    value: "FolderType"
+    data: "NotSpecified"
+    type: REG_SZ

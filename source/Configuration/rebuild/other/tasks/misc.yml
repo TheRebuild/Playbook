@@ -1,0 +1,32 @@
+title: Rebuild OS - Miscalaneous Tweaks
+actions:
+  # Configure the Multimedia Class Scheduler Service
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile'
+    value: "SystemResponsiveness"
+    data: "10"
+    type: REG_DWORD
+
+  # Disable LLMNR Protocol
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient'
+    value: "EnableMulticast"
+    data: "0"
+    type: REG_DWORD
+
+  #
+  # OneDrive
+  #
+
+  # Prevent the usage of OneDrive for file storage
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\OneDrive'
+    value: "DisableFileSyncNGSC"
+    data: "1"
+    type: REG_DWORD
+  - !registryValue: 
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\OneDrive'
+    value: "PreventNetworkTrafficPreUserSignIn"
+    data: "1"
+    type: REG_DWORD
+

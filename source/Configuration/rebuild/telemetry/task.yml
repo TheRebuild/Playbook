@@ -1,0 +1,12 @@
+title: Rebuild OS - Telemetry
+actions:
+  - !writeStatus: { status: "Disabling telemetry" }
+
+  - !task: { path: 'rebuild\telemetry\tasks\contentdelivery.yml' }
+  - !writeStatus: { status: "Removing telemetry..." }
+  - !task: { path: 'rebuild\telemetry\tasks\useractivity.yml' }
+  - !task: { path: 'rebuild\telemetry\tasks\diag.yml' }
+  - !task: { path: 'rebuild\telemetry\tasks\input.yml' }
+  - !task: { path: 'rebuild\telemetry\tasks\speech.yml' }
+  - !task: { path: 'rebuild\telemetry\tasks\insider.yml' }
+  - !task: { path: 'rebuild\telemetry\tasks\cloud.yml' }

@@ -1,0 +1,14 @@
+title: Rebuild OS - Context menu
+actions:
+  - !writeStatus: {
+      status: "Adding Batch Scripts to the 'New' Context Menu",
+      option: "batch-new",
+    }
+  - !run:
+    exe: "reg"
+    args: 'add HKCR\.bat\ShellNew /v ItemName /t REG_EXPAND_SZ /d %windir%\System32\acppage.dll,-6002'
+    option: "batch-new"
+  - !run:
+    exe: "reg"
+    args: 'add HKCR\.bat\ShellNew /v NullFile /t REG_SZ /d ""'
+    option: "batch-new"

@@ -1,0 +1,16 @@
+title: Rebuild OS - Optional Tweaks
+actions:
+  - !writeStatus: { status: "Disabling Gamebar...", option: "gamebar" }
+
+  - !run: {
+      exe: "reg",
+      args: 'add HKCU\SOFTWARE\Microsoft\GameBar /v AllowAutoGameMode /t REG_DWORD /d 0 /f',
+      option: "gamebar",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'add HKCU\SOFTWARE\Microsoft\GameBar /v AutoGameModeEnabled /t REG_DWORD /d 0 /f',
+      option: "gamebar",
+      runas: "currentUserElevated",
+    }

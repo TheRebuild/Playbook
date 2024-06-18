@@ -1,0 +1,25 @@
+title: Rebuild OS - Optional Tweaks (Desktop & Start Menu)
+actions:
+  # Disable acrylic blur effect on sign-in screen background
+  - !run: {
+      exe: "reg",
+      args: 'add HKLM\Software\Policies\Microsoft\Windows\System /v DisableAcrylicBackgroundOnLogon /t REG_DWORD /d 1 /f',
+      option: "disableacrylicbackground",
+      runas: "currentUserElevated",
+    }
+
+  # Hide 'Most used' list from Start Menu
+  - !run: {
+      exe: "reg",
+      args: 'add HKLM\Software\Policies\Microsoft\Windows\Explorer /v ShowOrHideMostUsedApps /t REG_DWORD /d 2 /f',
+      option: "hidemostused",
+      runas: "currentUserElevated",
+    }
+
+  # Hide 'Recently added' list
+  - !run: {
+      exe: "reg",
+      args: 'add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer /v HideRecentlyAddedApps /t REG_DWORD /d 1 /f',
+      option: "hiderecentlyaddedapps",
+      runas: "currentUserElevated",
+    }

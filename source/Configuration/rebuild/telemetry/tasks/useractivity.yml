@@ -1,0 +1,68 @@
+title: Rebuild OS - Telemetry stage
+actions:
+  - !writeStatus: { status: "Removing User Activity Telemetry..." }
+
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\System'
+    value: 'UploadUserActivities'
+    data: '0'
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\System'
+    value: 'PublishUserActivities'
+    data: '0'
+    type: REG_DWORD
+
+  # Location
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\FindMyDevice'
+    value: 'AllowFindMyDevice'
+    data: '0'
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\FindMyDevice'
+    value: 'LocationSyncEnabled'
+    data: '0'
+    type: REG_DWORD
+
+  # Force disallow telemetry for UWP apps
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\appDiagnostics'
+    value: 'Value'
+    data: 'Deny'
+    type: REG_SZ
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location'
+    value: 'Value'
+    data: 'Deny'
+    type: REG_SZ
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userAccountInformation'
+    value: 'Value'
+    data: 'Deny'
+    type: REG_SZ
+
+  # Restricting Anonymous Access
+  - !registryValue:
+    path: 'HKLM\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters'
+    value: "RestrictNullSessAccess"
+    data: "1"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SYSTEM\CurrentControlSet\Control\Lsa'
+    value: "RestrictAnonymous"
+    data: "1"
+    type: REG_DWORD
+
+  # Turn off user tracking
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer'
+    value: "NoInstrumentation"
+    data: "1"
+    type: REG_DWORD
+
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform'
+    value: "NoGenTicket"
+    data: "1"
+    type: REG_DWORD

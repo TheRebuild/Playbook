@@ -1,0 +1,7 @@
+title: Rebuild OS - Other Tweaks
+actions:
+  - !task: { path: 'rebuild\other\tasks\memory.yml' }
+  - !task: { path: 'rebuild\other\tasks\misc.yml' }
+  - !task: { path: 'rebuild\other\tasks\desktop.yml' }
+  - !task: { path: 'rebuild\other\tasks\oobe.yml' }
+  - !task: { path: 'rebuild\other\tasks\pca.yml' }

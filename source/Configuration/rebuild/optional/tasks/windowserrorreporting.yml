@@ -1,0 +1,36 @@
+title: Rebuild OS - Windows Error Reporting
+actions:
+  - !writeStatus: {
+      status: "Disabling Windows Error Reporting...",
+      option: "windowserrorreporting",
+    }
+
+  - !run: {
+      exe: "reg",
+      args: 'add HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting /v Disabled /t REG_DWORD /d 1 /f',
+      option: "windowserrorreporting",
+    }
+
+  - !run: {
+      exe: "reg",
+      args: 'add HKLM\SOFTWARE\Policies\Microsoft\PCHealth\ErrorReporting /v DoReport /t REG_DWORD /d 0 /f',
+      option: "windowserrorreporting",
+    }
+
+  - !run: {
+      exe: "reg",
+      args: 'add HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting /v Disabled /t REG_DWORD /d 1 /f',
+      option: "windowserrorreporting",
+    }
+
+  - !run: {
+      exe: "reg",
+      args: 'add HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Settings /v DisableSendGenericDriverNotFoundToWER /t REG_DWORD /d 1 /f',
+      option: "windowserrorreporting",
+    }
+
+  - !run: {
+      exe: "reg",
+      args: 'add HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceInstall\Settings /v DisableSendRequestAdditionalSoftwareToWER /t REG_DWORD /d 1 /f',
+      option: "windowserrorreporting",
+    }

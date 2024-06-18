@@ -1,0 +1,15 @@
+title: Rebuild OS - Desktop Tweaks
+actions:
+  - !writeStatus: { status: "Applying Desktop Tweaks..." }
+
+  # Hide People Bar
+  - !registryValue:
+    path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer'
+    value: "HidePeopleBar"
+    data: "1"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People'
+    value: "PeopleBand"
+    data: "0"
+    type: REG_DWORD

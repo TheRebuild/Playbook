@@ -1,0 +1,33 @@
+title: Rebuild OS - Optional Tweaks
+actions:
+  - !writeStatus: { status: "Disabling Autorun...", option: "disable-autorun" }
+  - !run: {
+        exe: "reg",
+        args: 'add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers /v DisableAutoplay /t REG_DWORD /d 1 /f',
+        option: "disable-autorun",
+        runas: "currentUserElevated",
+      }
+  - !run: {
+      exe: "reg",
+      args: 'add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\EventHandlersDefaultSelection\CameraAlternate /v MSTakeNoAction /t REG_NONE /d "" /f',
+      option: "disable-autorun",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\EventHandlersDefaultSelection\StorageOnArrival /v MSTakeNoAction /t REG_NONE /d "" /f',
+      option: "disable-autorun",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\UserChosenExecuteHandlers\CameraAlternate\ShowPicturesOnArrival /v MSTakeNoAction /t REG_NONE /d "" /f',
+      option: "disable-autorun",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\UserChosenExecuteHandlers\StorageOnArrival /v MSTakeNoAction /t REG_NONE /d "" /f',
+      option: "disable-autorun",
+      runas: "currentUserElevated",
+    }

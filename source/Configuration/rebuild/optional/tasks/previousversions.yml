@@ -1,0 +1,65 @@
+title: Rebuild OS - Explorer Tweaks
+actions:
+  - !writeStatus: { status: "Removing 'Previous Versions' tab" }
+
+  # Remove 'Previous Versions' from explorer
+  - !run: {
+      exe: "reg",
+      args: 'delete HKCR\AllFilesystemObjects\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153} /f',
+      option: "previousversions",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'delete HKCR\CLSID\{450D8FBA-AD25-11D0-98A8-0800361B1103}\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153} /f',
+      option: "previousversions",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'delete HKCR\Directory\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153} /f',
+      option: "previousversions",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'delete HKCR\Drive\shellex\PropertySheetHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153} /f',
+      option: "previousversions",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'delete HKCR\AllFilesystemObjects\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153} /f',
+      option: "previousversions",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'delete HKCR\CLSID\{450D8FBA-AD25-11D0-98A8-0800361B1103}\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153} /f',
+      option: "previousversions",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'delete HKCR\Directory\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153} /f',
+      option: "previousversions",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'delete HKCR\Drive\shellex\ContextMenuHandlers\{596AB062-B4D2-4215-9F74-E9109B0A8153} /f',
+      option: "previousversions",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'delete HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer /v NoPreviousVersionsPage /f',
+      option: "previousversions",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'delete HKCU\SOFTWARE\Policies\Microsoft\PreviousVersions /v DisableLocalPage /f',
+      option: "previousversions",
+      runas: "currentUserElevated",
+    }

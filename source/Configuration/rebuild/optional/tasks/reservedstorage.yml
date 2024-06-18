@@ -1,0 +1,25 @@
+title: Rebuild OS - Optional Tweaks
+actions:
+  - !writeStatus: {
+      status: "Disabling Reserved Storage...",
+      option: "reservedstorage",
+    }
+
+  - !run: {
+      exe: "reg",
+      args: 'add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\ReserveManager /v MiscPolicyInfo /t REG_DWORD /d 2 /f',
+      option: "reservedstorage",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\ReserveManager /v PassedPolicy /t REG_DWORD /d 0 /f',
+      option: "reservedstorage",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\ReserveManager /v ShippedWithReserves /t REG_DWORD /d 0 /f',
+      option: "reservedstorage",
+      runas: "currentUserElevated",
+    }

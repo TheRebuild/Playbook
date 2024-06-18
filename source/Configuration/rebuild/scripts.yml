@@ -1,0 +1,13 @@
+title: Rebuild OS - scripts
+actions:
+  - !writeStatus: { status: "Disabling svchost Splitting" }
+  - !powerShell:
+    command: 'Get-ChildItem "HKLM:\SYSTEM\CurrentControlSet\Services" | ? { $_.Name -notmatch ''Xbl|Xbox'' } | % { $a = Get-ItemProperty -Path "REGISTRY::$_" -EA SilentlyContinue; if ($null -ne $a.Start) { Set-ItemProperty -Path "Registry::$_" -Name "SvcHostSplitDisable" -Type DWORD -Value 1 -Force -EA SilentlyContinue } }'
+    wait: true
+
+  - !writeStatus: { status: "Optimizing NTFS" }
+  - !run: { exe: "fsutil", args: "behavior set disablelastaccess 1" }
+  - !run: { exe: "fsutil", args: "behavior set disable8dot3 1" }
+
+  - !writeStatus: { status: "Configuring BCD" }
+  - !run: {exe: 'bcdedit', args: '/set bootmenupolicy Legacy'}

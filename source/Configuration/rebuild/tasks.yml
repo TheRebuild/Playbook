@@ -1,0 +1,14 @@
+title: Rebuild OS - tasks
+actions:
+  - !writeStatus: { status: "Disabling unused scheduled tasks" }
+
+  - !scheduledTask: {path: '\Microsoft\Windows\Diagnosis\Scheduled', operation: disable}
+
+    # Updates compatibility database
+  - !scheduledTask: {path: '\Microsoft\Windows\Application Experience\PcaPatchDbTask', operation: disable}
+
+    # UCPD - might not exist on all installs, so ignore errors
+  - !scheduledTask: {path: '\Microsoft\Windows\AppxDeploymentClient\UCPD velocity', operation: disable, ignoreErrors: true}
+
+  
+

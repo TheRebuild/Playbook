@@ -1,0 +1,12 @@
+title: Rebuild OS - OOBE Tweaks
+actions:
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\UserProfileEngagement'
+    value: "ScoobeSystemSettingEnabled"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\OOBE'
+    value: "DisablePrivacyExperience"
+    data: "1"
+    type: REG_DWORD

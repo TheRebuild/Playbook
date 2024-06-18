@@ -1,0 +1,20 @@
+title: Rebuild OS - main
+actions:
+  # - !writeStatus: { status: "Modifying registry" }
+  # - !task: { path: 'Tasks\registry.yml' }
+  # - !writeStatus: { status: "Removing APPX packages" }
+  # - !task: { path: 'Tasks\appx.yml' }
+
+  - !writeStatus: { status: "Preparing..." }
+  - !taskKill: { name: "explorer" }
+
+  - !writeStatus: { status: "Running..." }
+  - !task: { path: 'rebuild\scripts.yml' }
+  - !task: { path: 'rebuild\services.yml' }
+  - !task: { path: 'rebuild\tasks.yml' }
+  - !task: { path: 'rebuild\explorer\task.yml' }
+  - !task: { path: 'rebuild\optional\task.yml' }
+  - !task: { path: 'rebuild\other\task.yml' }
+  - !task: { path: 'rebuild\telemetry\task.yml' }
+
+  - !writeStatus: { status: "Done" }
