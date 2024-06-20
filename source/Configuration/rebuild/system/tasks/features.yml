@@ -1,0 +1,25 @@
+title: Rebuild OS - DISM features
+actions:
+  # Enable DirectPlay
+  - !run: {
+      exe: "dism",
+      args: '/online /Enable-Feature /FeatureName:DirectPlay /All /NoRestart',
+      option: "directplay",
+      runas: "currentUserElevated",
+  }
+
+  # Enable LegacyComponents
+  - !run: {
+      exe: "dism",
+      args: '/online /Enable-Feature /FeatureName:LegacyComponents /All /NoRestart',
+      option: "legacycomponents",
+      runas: "currentUserElevated",
+  }
+
+  # Disable Remote Differential Compression
+  - !run: {
+      exe: "dism",
+      args: '/online /Disable-Feature /FeatureName:MSRDC-Infrastructure /All /NoRestart',
+      option: "remotedifferentialcompression",
+      runas: "currentUserElevated",
+  }

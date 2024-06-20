@@ -53,13 +53,13 @@ actions:
     }
   - !run: {
       exe: "reg",
-      args: 'delete HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer /v NoPreviousVersionsPage /f',
+      args: 'add HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer /v NoPreviousVersionsPage /f',
       option: "previousversions",
       runas: "currentUserElevated",
     }
   - !run: {
       exe: "reg",
-      args: 'delete HKCU\SOFTWARE\Policies\Microsoft\PreviousVersions /v DisableLocalPage /f',
+      args: 'add HKCU\SOFTWARE\Policies\Microsoft\PreviousVersions /v DisableLocalPage /f',
       option: "previousversions",
       runas: "currentUserElevated",
     }

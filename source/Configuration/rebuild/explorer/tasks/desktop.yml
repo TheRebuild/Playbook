@@ -13,3 +13,10 @@ actions:
     value: "PeopleBand"
     data: "0"
     type: REG_DWORD
+
+  # Disable Wallpaper Compression
+  - !registryValue:
+    path: 'HKCU\Control Panel\Desktop'
+    value: 'JPEGImportQuality'
+    data: '100'
+    type: REG_DWORD

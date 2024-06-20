@@ -5,7 +5,7 @@ actions:
   - !task: { path: 'rebuild\optional\tasks\reservedstorage.yml' }
   - !task: { path: 'rebuild\optional\tasks\backgroundapps.yml' }
   - !task: { path: 'rebuild\optional\tasks\gamebar.yml' }
-  - !task: { path: 'rebuild\optional\tasks\batch.yml' }
+  - !task: { path: 'rebuild\optional\tasks\contextmenu.yml' }
   - !task: { path: 'rebuild\optional\tasks\desktop.yml' }
   - !task: { path: 'rebuild\optional\tasks\autorun.yml' }
   - !task: { path: 'rebuild\optional\tasks\windowserrorreporting.yml' }

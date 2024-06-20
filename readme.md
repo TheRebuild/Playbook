@@ -12,6 +12,57 @@
 - Enjoy!
 
 ## Changelog
+- 0.2.0 - Secondary release
+  - added features:
+    - Now playbook can delete these packages:
+    
+      (You can remove these packages if you want to, and they won't be installed from Windows Update):
+      - Skype
+      - Teams
+      - Media Player
+      - OneDrive
+      - Xbox Legacy Companion
+      - Cortana
+      - Alarms & Clock
+      - Paint 3D
+      - Films & TV
+      - Spotify
+      - Disney+
+      - Tips
+      - Microsoft Family
+      - Mixed Reality Portal
+      - DevHome
+      - Bing Weather
+      - Bing News
+      - Outlook (new)
+      - Get Help
+      - 3D Viewer
+      - Office Hub (Get Office)
+      - Solitaire Collection
+      - Sticky Notes
+      - People
+      - OneNote
+      - Power Automate Desktop
+      - Snipping Tool
+      - Windows Wallet
+      - Windows Camera
+      - To-Dos
+      - Feedback Hub
+      - Maps
+      - Sound Recorder
+      - Music Player
+      - Your Phone
+    
+    - Added finalizing steps of the playbook
+    - Option to restore old search icon
+    - Disabling automatic store updates
+    - Disabling automatic updates in Windows Update and pause it until 2077
+    - DirectPlay and LegacyComponents components are now enabled by default
+    - Remote Differential Compression is disabled by default
+    - Optionally, you can uninstall Microsoft Edge and Onedrive in the Features page
+    - and more
+
+
 - 0.1.0 - Initial alpha release
     - added features:
       - Disable GameBar (optional)

@@ -23,3 +23,12 @@ actions:
       option: "hiderecentlyaddedapps",
       runas: "currentUserElevated",
     }
+  
+  # Restore old Search icon
+  - !run: {
+      exe: 'vivetool\ViveTool.exe',
+      exeDir: true,
+      args: '/disable /id:41868508',
+      option: "oldsearchicon",
+      runas: "currentUserElevated",
+    }

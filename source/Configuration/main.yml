@@ -16,5 +16,7 @@ actions:
   - !task: { path: 'rebuild\optional\task.yml' }
   - !task: { path: 'rebuild\other\task.yml' }
   - !task: { path: 'rebuild\telemetry\task.yml' }
+  - !task: { path: 'rebuild\system\task.yml' }
 
+  - !task: { path: 'rebuild\other\tasks\finalizing.yml' }
   - !writeStatus: { status: "Done" }

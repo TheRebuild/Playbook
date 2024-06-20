@@ -7,7 +7,7 @@ actions:
 
   - !run: {
       exe: "reg",
-      args: 'add HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting /v Disabled /t REG_DWORD /d 1 /f',
+      args: 'add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" /v Disabled /t REG_DWORD /d 1 /f',
       option: "windowserrorreporting",
     }
 
@@ -19,7 +19,7 @@ actions:
 
   - !run: {
       exe: "reg",
-      args: 'add HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting /v Disabled /t REG_DWORD /d 1 /f',
+      args: 'add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" /v Disabled /t REG_DWORD /d 1 /f',
       option: "windowserrorreporting",
     }
 

@@ -1,0 +1,134 @@
+title: Rebuild OS - System Apps removal
+actions:
+  # Microsoft Edge
+  - !writeStatus: { status: "Removing Microsoft Edge", option: "remove-edge" }
+  - !appx: {
+      name: "*microsoft.microsoftedge.stable*",
+      type: family,
+      ignoreErrors: true,
+      weight: 10,
+      option: "remove-edge",
+    }
+  - !appx: {
+      name: "*Microsoft.MicrosoftEdge*",
+      type: family,
+      ignoreErrors: true,
+      weight: 10,
+      option: "remove-edge",
+    }
+  - !appx: {
+      name: "*Microsoft.MicrosoftEdgeDevToolsClient*",
+      ignoreErrors: true,
+      type: family,
+      weight: 10,
+      option: "remove-edge",
+    }
+  - !file: {
+      path: "C:\\Windows\\SystemApps\\Microsoft.MicrosoftEdgeDevToolsClient_8wekyb3d8bbwe",
+      ignoreErrors: true,
+      option: "remove-edge",
+    }
+  - !taskKill: {
+      name: "MicrosoftEdgeUpdate",
+      ignoreErrors: true,
+      option: "remove-edge",
+    }
+  - !taskKill: { name: "msedge", ignoreErrors: true, option: "remove-edge" }
+  - !taskKill: {
+      name: "MicrosoftEdge*",
+      ignoreErrors: true,
+      option: "remove-edge",
+    }
+  - !taskKill: {
+      name: "setup",
+      ignoreErrors: true,
+      pathContains: "\\Edge",
+      option: "remove-edge",
+    }
+
+  - !powerShell:
+    command: '.\EDGE.ps1 -Mode EdgeBrowser'
+    exeDir: true
+    runas: currentUserElevated
+    option: "remove-edge"
+    weight: 40
+    wait: true
+
+  - !file: {
+      path: "%ProgramFiles(x86)%\\Microsoft\\Edge",
+      option: "remove-edge",
+      weight: 50,
+    }
+
+  # Allow uninstall of Edge, EdgeUpdate and WebView
+  - !run: {
+      exe: "reg",
+      args: 'add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge" /v "NoRemove" /t REG_DWORD /d 0 /f',
+      option: "remove-edge",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge Update" /v "NoRemove" /t REG_DWORD /d 0 /f',
+      option: "remove-edge",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'add "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft EdgeWebView" /v "NoRemove" /t REG_DWORD /d 0 /f',
+      option: "remove-edge",
+    }
+
+  - !writeStatus:
+    status: "Deleting registry keys containing MicrosoftEdge*"
+  - !powerShell:
+    command: >-
+      $RegistryPath = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
+      $Pattern = "MicrosoftEdge*";
+      $Keys = Get-ItemProperty -Path $RegistryPath | Get-Member -MemberType Properties | Where-Object { $_.Name -like $Pattern };
+      foreach ($Key in $Keys) {
+          $KeyName = $Key.Name;
+          Write-Output "Deleting registry key: $RegistryPath\$KeyName";
+          Remove-ItemProperty -Path $RegistryPath -Name $KeyName -Force;
+      }
+    runas: currentUserElevated
+    wait: true
+
+  # OneDrive (application)
+  - !writeStatus: {
+      status: "Removing OneDrive (app)",
+      option: "remove-onedrive",
+    }
+  - !taskKill: {
+      name: "OneDriveStandaloneUpdater",
+      ignoreErrors: true,
+      option: "remove-onedrive",
+    }
+  - !taskKill: {
+      name: "OneDriveSetup",
+      ignoreErrors: true,
+      option: "remove-onedrive",
+    }
+  - !taskKill: {
+      name: "OneDrive*",
+      ignoreErrors: true,
+      option: "remove-onedrive",
+    }
+
+  - !cmd: {
+      command: '%windir%\System32\OneDriveSetup.exe /uninstall >NUL 2>&1 && exit 0',
+      runas: currentUserElevated,
+      wait: true,
+      option: "remove-onedrive",
+    }
+
+  - !cmd: {
+      command: '%windir%\SysWOW64\OneDriveSetup.exe /uninstall >NUL 2>&1 && exit 0',
+      runas: currentUserElevated,
+      wait: true,
+      option: "remove-onedrive",
+    }
+
+  - !file: { path: "%SystemDrive%\\OneDriveTemp", option: "remove-onedrive" }
+  - !file: {
+      path: "%ProgramData%\\Microsoft OneDrive",
+      option: "remove-onedrive",
+    }

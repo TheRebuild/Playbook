@@ -14,9 +14,9 @@ actions:
     data: "0"
     type: REG_DWORD
 
-  #
-  # OneDrive
-  #
+  #==========#
+  # OneDrive #
+  #==========#
 
   # Prevent the usage of OneDrive for file storage
   - !registryValue:
@@ -24,9 +24,47 @@ actions:
     value: "DisableFileSyncNGSC"
     data: "1"
     type: REG_DWORD
-  - !registryValue: 
+  - !registryValue:
     path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\OneDrive'
     value: "PreventNetworkTrafficPreUserSignIn"
     data: "1"
     type: REG_DWORD
 
+  #========#
+  #  BSOD  #
+  #========#
+
+  # Disable Auto Reboot when BSOD happens
+  - !registryValue:
+    path: 'HKLM\SYSTEM\CurrentControlSet\Control\CrashControl'
+    value: "AutoReboot"
+    data: "0"
+    type: REG_DWORD
+
+  #========#
+  #  WPBT  #
+  #========#
+
+  # Disable Windows Platform Binary Execution
+  - !registryValue:
+    path: 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager'
+    value: "DisableWpbtExecution"
+    data: "1"
+    type: REG_DWORD
+
+  #===========#
+  # Dark Mode #
+  #===========#
+  - !run: {
+      exe: "reg",
+      args: 'add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "AppsUseLightTheme" /t REG_DWORD /d 0 /f',
+      option: "darkmode",
+      runas: "currentUserElevated",
+    }
+
+  - !run: {
+      exe: "reg",
+      args: 'add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "SystemUsesLightTheme" /t REG_DWORD /d 0 /f',
+      option: "darkmode",
+      runas: "currentUserElevated",
+    }

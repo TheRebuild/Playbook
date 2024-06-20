@@ -1,17 +1,59 @@
 title: Rebuild OS - services
 actions:
   - !writeStatus: { status: "Disabling services" }
-  - !service: {name: 'lfsvc', operation: change, startup: 4}
-  - !service: {name: 'MapsBroker', operation: change, startup: 4}
-  - !service: {name: 'OneSyncSvc', operation: change, startup: 4}
-  - !service: {name: 'TrkWks', operation: change, startup: 4}
-  - !service: {name: 'PcaSvc', operation: change, startup: 4}
-  - !service: {name: 'DiagTrack', operation: change, startup: 4}
-  - !service: {name: 'WSearch', operation: change, startup: 4}
-  - !service: {name: 'diagnosticshub.standardcollector.service', operation: change, startup: 4}
-  - !service: {name: 'diagsvc', operation: change, startup: 4}
-  - !service: {name: 'WdiServiceHost', operation: change, startup: 4}
-  - !service: {name: 'WdiSystemHost', operation: change, startup: 4}
-  - !service: {name: 'WerSvc', operation: change, startup: 4} 
-  - !service: {name: 'DispBrokerDesktopSvc', operation: change, startup: 4} 
-  - !service: {name: 'Telemetry', operation: change, startup: 4}
+
+  # geolocation service (lfsvc)
+  - !service: { name: "lfsvc", operation: change, startup: 4 }
+
+  # Downloaded Maps Manager
+  - !service: { name: "MapsBroker", operation: change, startup: 4 }
+
+  # OneSyncSvc ( synchronizes mail, contacts, calendar and various other user data)
+  - !service: { name: "OneSyncSvc", operation: change, startup: 4 }
+
+  # Distributed Link Tracking Client
+  - !service: { name: "TrkWks", operation: change, startup: 4 }
+
+  # Program Compatibility Assistant Service
+  - !service: { name: "PcaSvc", operation: change, startup: 4 }
+
+  # Connected User Experiences and Telemetry
+  - !service: { name: "DiagTrack", operation: change, startup: 4 }
+
+  # Windows Search
+  - !service: { name: "WSearch", operation: change, startup: 4 }
+
+  # Microsoft (R) Diagnostics Hub Standard Collector
+  - !service: {
+      name: "diagnosticshub.standardcollector.service",
+      operation: change,
+      startup: 4,
+    }
+
+  # Diagnostic Execution Service
+  - !service: { name: "diagsvc", operation: change, startup: 4 }
+
+  # Diagnostic Service Host
+  - !service: { name: "WdiServiceHost", operation: change, startup: 4 }
+
+  # Diagnostic System Host
+  - !service: { name: "WdiSystemHost", operation: change, startup: 4 }
+
+  # Windows Error Reporting Service
+  - !service: { name: "WerSvc", operation: change, startup: 4 }
+
+  # Windows Event Collector
+  - !service: { name: "Wecsvc", operation: change, startup: 4 }
+
+  # Display Policy Service (Manages the connection and configuration of local and remote displays.)
+  - !service: { name: "DispBrokerDesktopSvc", operation: change, startup: 4 }
+
+  # Intel(R) Telemetry Service
+  - !service: { name: "Telemetry", operation: change, startup: 4 }
+
+  # Diagnostic Policy Service
+  # Needed for Data usage and troubleshooting, but the Troubleshooter automatically activates the service itself when needed
+  - !service: { name: "DPS", operation: change, startup: 4 }
+
+  # EdgeUpdate
+  - !service: { name: "edgeupdate", operation: change, startup: 3 }

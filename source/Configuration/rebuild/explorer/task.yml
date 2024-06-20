@@ -5,3 +5,5 @@ actions:
   - !task: { path: 'rebuild\explorer\tasks\search.yml' }
   - !task: { path: 'rebuild\explorer\tasks\start.yml' }
   - !task: { path: 'rebuild\explorer\tasks\shell.yml' }
+  - !task: { path: 'rebuild\explorer\tasks\desktop.yml' }
+  - !task: { path: 'rebuild\explorer\tasks\taskbar.yml' }

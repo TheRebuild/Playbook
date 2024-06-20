@@ -6,8 +6,24 @@ actions:
     wait: true
 
   - !writeStatus: { status: "Optimizing NTFS" }
-  - !run: { exe: "fsutil", args: "behavior set disablelastaccess 1" }
-  - !run: { exe: "fsutil", args: "behavior set disable8dot3 1" }
+  # - !run: { exe: "fsutil", args: "behavior set disablelastaccess 1" }
+  # - !run: { exe: "fsutil", args: "behavior set disable8dot3 1" }
+  - !cmd: {
+      command: "fsutil behavior set disablelastaccess 1 && exit 0",
+      wait: true,
+      runas: "currentUserElevated",
+    }
+  
+  - !cmd: {
+      command: "fsutil behavior set disable8dot3 1 && exit 0",
+      wait: true,
+      runas: "currentUserElevated",
+    }
 
   - !writeStatus: { status: "Configuring BCD" }
-  - !run: {exe: 'bcdedit', args: '/set bootmenupolicy Legacy'}
+  - !cmd: {
+      command: "bcdedit /set bootmenupolicy Legacy && exit 0",
+      wait: true,
+      runas: "currentUserElevated",
+  }
+  # - !run: {exe: 'bcdedit', args: '/set bootmenupolicy Legacy'}

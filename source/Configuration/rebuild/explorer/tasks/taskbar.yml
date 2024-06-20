@@ -1,0 +1,20 @@
+title: Rebuild OS - Explorer Tweaks
+actions:
+  # Disable News and Interests
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Feeds'
+    value: "EnableFeeds"
+    data: "0"
+    type: REG_DWORD
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Dsh'
+    value: "AllowNewsAndInterests"
+    data: "0"
+    type: REG_DWORD
+
+  # Hide 'Meet now' from taskbar
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer'
+    value: "HideSCAMeetNow"
+    data: "1"
+    type: REG_DWORD

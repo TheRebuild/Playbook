@@ -1,0 +1,139 @@
+title: Rebuild OS - Windows Update Tweaks
+actions:
+  - !writeStatus: { status: "Configuring Windows Update" }
+
+  - !run: {
+      exe: "reg",
+      args: 'add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "AUPowerManagement" /t REG_DWORD /d 0 /f',
+      option: "windowsupdate",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "NoAutoRebootWithLoggedOnUsers" /t REG_DWORD /d 1 /f',
+      option: "windowsupdate",
+    }
+
+  # Disable Auto Updates
+  - !run: {
+      exe: "reg",
+      args: 'add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "NoAutoUpdate" /t REG_DWORD /d 1 /f',
+      option: "windowsupdate",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "AUOptions" /t REG_DWORD /d 2 /f',
+      option: "windowsupdate",
+    }
+
+  # Prevent Outlook and DevHome from updating
+  - !run: {
+      exe: "reg",
+      args: 'add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Orchestrator\UScheduler\DevHomeUpdate" /f',
+      option: "windowsupdate",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Orchestrator\UScheduler\OutlookUpdate" /f',
+      option: "windowsupdate",
+    }
+
+  # Disable feature updates
+  - !run: {
+      exe: "reg",
+      args: 'add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "TargetReleaseVersion" /t REG_DWORD /d 1 /f',
+      option: "windowsupdate",
+    }
+
+  - !powerShell:
+    command: 'if ((Get-CimInstance -Class Win32_OperatingSystem).Caption -match 11) {$a = ''Windows 11''} else {$a = ''Windows 10''}; New-ItemProperty -Path ''HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate'' -Name ''ProductVersion'' -Value $a -PropertyType String -Force'
+    wait: true
+    option: "windowsupdate"
+  - !powerShell:
+    command: '$ver = (Get-ItemProperty ''HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'').DisplayVersion; New-ItemProperty -Path ''HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate'' -Name ''TargetReleaseVersion'' -Value $ver -PropertyType String -Force'
+    wait: true
+    option: "windowsupdate"
+
+  # Disable MSRT (Malicious Software Removal Tool) telemetry)
+  - !run: {
+      exe: "reg",
+      args: 'add "HKLM\SOFTWARE\Policies\Microsoft\MRT" /v "DontReportInfectionInformation" /t REG_DWORD /d 1 /f',
+      option: "windowsupdate",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'add "HKLM\SOFTWARE\Microsoft\RemovalTools\MpGears" /v "HeartbeatTrackingIndex" /t REG_DWORD /d 0 /f',
+      option: "windowsupdate",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'add "HKLM\SOFTWARE\Microsoft\RemovalTools\MpGears" /v "SpyNetReportingLocation" /t REG_MULTI_SZ /d "" /f',
+      option: "windowsupdate",
+    }
+
+  # Disable Windows Update nagging
+  - !run: {
+      exe: "reg",
+      args: 'add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "NoAUAsDefaultShutdownOption" /t REG_DWORD /d 1 /f',
+      option: "windowsupdate",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "HideMCTLink" /t REG_DWORD /d 1 /f',
+      option: "windowsupdate",
+    }
+
+  # Disable automatic store updates
+  - !run: {
+      exe: "reg",
+      args: 'add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsStore\WindowsUpdate" /v "AutoDownload" /t REG_DWORD /d 2 /f',
+      option: "storeupdates",
+    }
+  
+  # Pause updates until 2077
+  - !run: {
+      exe: "reg",
+      args: 'add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "ActiveHoursEnd" /t REG_DWORD /d 2 /f',
+      option: "windowsupdate",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "ActiveHoursStart" /t REG_DWORD /d 9 /f',
+      option: "windowsupdate",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "PauseFeatureUpdatesEndTime" /t REG_SZ /d "2077-01-01T00:00:00Z" /f',
+      option: "windowsupdate",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "PauseFeatureUpdatesStartTime" /t REG_SZ /d "2015-01-01T00:00:00Z" /f',
+      option: "windowsupdate",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "PauseQualityUpdatesEndTime" /t REG_SZ /d "2077-01-01T00:00:00Z" /f',
+      option: "windowsupdate",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "PauseQualityUpdatesStartTime" /t REG_SZ /d "2015-01-01T00:00:00Z" /f',
+      option: "windowsupdate",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "PauseUpdatesExpiryTime" /t REG_SZ /d "2077-01-01T00:00:00Z" /f',
+      option: "windowsupdate",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'add "HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v "PauseUpdatesStartTime" /t REG_SZ /d "2015-01-01T00:00:00Z" /f',
+      option: "windowsupdate",
+    }
+
+  # Hide Windows Update from settings
+  - !run: {
+      exe: "reg",
+      args: 'add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "SettingsPageVisibility" /t REG_SZ /d "hide:windowsupdate" /f',
+      option: "windowsupdate",
+    }

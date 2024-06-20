@@ -1,0 +1,57 @@
+title: Rebuild OS - Final operations
+actions:
+  # Clear caches
+  - !writeStatus: { status: "Clearing AppX caches" }
+  - !appx: {
+      operation: clearCache,
+      name: "MicrosoftWindows.Client.CBS*",
+      ignoreErrors: true,
+    }
+  - !appx: {
+      operation: clearCache,
+      name: "Microsoft.Windows.Search_cw5n1h2txyewy",
+      ignoreErrors: true,
+    }
+  - !appx: {
+      operation: clearCache,
+      name: "Microsoft.Windows.SecHealthUI_cw5n1h2txyewy",
+      ignoreErrors: true,
+    }
+  - !appx: {
+      operation: clearCache,
+      name: "Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy",
+      ignoreErrors: true,
+    }
+
+  - !writeStatus: { status: "Finalizing..." }
+
+  # Configuring sleep study and etc.
+
+  - !run: {
+      exe: "wevtutil",
+      args: "sl Microsoft-Windows-SleepStudy/Diagnostic /q:false",
+    }
+
+  - !run: {
+      exe: "wevtutil",
+      args: "sl Microsoft-Windows-Kernel-Processor-Power/Diagnostic /q:false",
+    }
+
+  - !run: {
+      exe: "wevtutil",
+      args: "sl Microsoft-Windows-UserModePowerService/Diagnostic /q:false",
+    }
+
+  # Configuring user settings
+  - !run: {
+      exe: "net",
+      args: "accounts /maxpwage:unlimited",
+      runas: "currentUserElevated",
+    }
+
+  # Clear temporary files
+  - !cmd: {
+      command: 'del /s /f /q C:\Windows\Temp\*',
+      wait: true,
+      runas: "currentUserElevated",
+    }

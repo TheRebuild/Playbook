@@ -1,0 +1,6 @@
+title: Rebuild OS - System Tweaks
+actions:
+  - !task: { path: 'rebuild\system\tasks\windowsupdate.yml' }
+  - !task: { path: 'rebuild\system\tasks\appx.yml' }
+  - !task: { path: 'rebuild\system\tasks\apps.yml' }
+  - !task: { path: 'rebuild\system\tasks\features.yml' }

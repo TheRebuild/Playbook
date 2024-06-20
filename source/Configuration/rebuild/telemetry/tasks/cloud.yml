@@ -63,9 +63,62 @@ actions:
     value: "DisableSoftLanding"
     data: "1"
     type: REG_DWORD
-  - !registryValue: 
+  - !registryValue:
     path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent'
     value: "DisableWindowsConsumerFeatures"
     data: "1"
     type: REG_DWORD
-  
+  - !registryValue: {
+      path: 'HKCU\Software\Policies\Microsoft\Windows\CloudContent',
+      value: "ConfigureWindowsSpotlight",
+      type: REG_DWORD,
+      data: "2",
+    }
+  - !registryValue: {
+      path: 'HKCU\Software\Policies\Microsoft\Windows\CloudContent',
+      value: "IncludeEnterpriseSpotlight",
+      type: REG_DWORD,
+      data: "0",
+    }
+  - !registryValue: {
+      path: 'HKCU\Software\Policies\Microsoft\Windows\CloudContent',
+      value: "DisableThirdPartySuggestions",
+      type: REG_DWORD,
+      data: "1",
+    }
+  - !registryValue: {
+      path: 'HKCU\Software\Policies\Microsoft\Windows\CloudContent',
+      value: "DisableTailoredExperiencesWithDiagnosticData",
+      type: REG_DWORD,
+      data: "1",
+    }
+  - !registryValue: {
+      path: 'HKCU\Software\Policies\Microsoft\Windows\CloudContent',
+      value: "DisableWindowsSpotlightFeatures",
+      type: REG_DWORD,
+      data: "1",
+    }
+  - !registryValue: {
+      path: 'HKCU\Software\Policies\Microsoft\Windows\CloudContent',
+      value: "DisableWindowsSpotlightWindowsWelcomeExperience",
+      type: REG_DWORD,
+      data: "1",
+    }
+  - !registryValue: {
+      path: 'HKCU\Software\Policies\Microsoft\Windows\CloudContent',
+      value: "DisableWindowsSpotlightOnActionCenter",
+      type: REG_DWORD,
+      data: "1",
+    }
+  - !registryValue: {
+      path: 'HKCU\Software\Policies\Microsoft\Windows\CloudContent',
+      value: "DisableWindowsSpotlightOnSettings",
+      type: REG_DWORD,
+      data: "1",
+    }
+  - !registryValue: {
+      path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent',
+      value: "DisableCloudOptimizedContent",
+      type: REG_DWORD,
+      data: "1",
+    }

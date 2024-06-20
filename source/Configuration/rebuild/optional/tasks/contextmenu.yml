@@ -1,0 +1,158 @@
+title: Rebuild OS - Context menu
+actions:
+  # Add Batch Scripts to 'New' Context Menu
+  - !writeStatus: {
+      status: "Adding Batch Scripts to the 'New' Context Menu",
+      option: "batch-new",
+    }
+  - !run:
+    exe: "reg"
+    args: 'add HKCR\.bat\ShellNew /v ItemName /t REG_EXPAND_SZ /d %windir%\System32\acppage.dll,-6002 /f'
+    option: "batch-new"
+    runas: "currentUserElevated"
+  - !run:
+    exe: "reg"
+    args: 'add HKCR\.bat\ShellNew /v NullFile /t REG_SZ /d "" /f'
+    option: "batch-new"
+    runas: "currentUserElevated"
+
+  # Remove Nvidia Control Panel from Context Menu
+  - !writeStatus: {
+      status: "Removing Nvidia Control Panel from Context Menu",
+      option: "removenvidiapanel",
+    }
+  - !run:
+    exe: "reg"
+    args: 'add HKCR\Software\NVIDIA Corporation\Global\NvCplApi\Policies /v ContextUiPolicy /t REG_DWORD /d 0 /f'
+    option: "removenvidiapanel"
+    runas: "currentUserElevated"
+
+  # remove 'Give access to' from context menu
+
+  - !run: {
+      exe: "reg",
+      args: 'delete HKCR\*\shellex\ContextMenuHandlers\Sharing /f',
+      option: "giveaccessto",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'delete HKCR\Directory\Background\shellex\ContextMenuHandlers\Sharing /f',
+      option: "giveaccessto",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'delete HKCR\Directory\shellex\ContextMenuHandlers\Sharing /f',
+      option: "giveaccessto",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'delete HKCR\Drive\shellex\ContextMenuHandlers\Sharing /f',
+      option: "giveaccessto",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'delete HKCR\LibraryFolder\background\shellex\ContextMenuHandlers\Sharing /f',
+      option: "giveaccessto",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'delete HKCR\UserLibraryFolder\shellex\ContextMenuHandlers\Sharing /f',
+    }
+
+  # Remove 'Include in Library' from Context Menu
+  - !run: {
+      exe: "reg",
+      args: 'delete "HKCR\Folder\ShellEx\ContextMenuHandlers\Library Location" /f',
+      option: "includeinlibrary",
+      runas: "currentUserElevated",
+    }
+
+  # Remove 'Edit with Paint 3D' from Context Menu
+  - !run: {
+      exe: "reg",
+      args: 'delete "HKCR\SystemFileAssociations\.3mf\Shell\3D Edit" /f',
+      option: "removeeditwithpaint3d",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'delete "HKCR\SystemFileAssociations\.bmp\Shell\3D Edit" /f',
+      option: "removeeditwithpaint3d",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'delete "HKCR\SystemFileAssociations\.fbx\Shell\3D Edit" /f',
+      option: "removeeditwithpaint3d",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'delete "HKCR\SystemFileAssociations\.gif\Shell\3D Edit" /f',
+      option: "removeeditwithpaint3d",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'delete "HKCR\SystemFileAssociations\.jfif\Shell\3D Edit" /f',
+      option: "removeeditwithpaint3d",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'delete "HKCR\SystemFileAssociations\.jpe\Shell\3D Edit" /f',
+      option: "removeeditwithpaint3d",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'delete "HKCR\SystemFileAssociations\.jpeg\Shell\3D Edit" /f',
+      option: "removeeditwithpaint3d",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'delete "HKCR\SystemFileAssociations\.jpg\Shell\3D Edit" /f',
+      option: "removeeditwithpaint3d",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'delete "HKCR\SystemFileAssociations\.png\Shell\3D Edit" /f',
+      option: "removeeditwithpaint3d",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'delete "HKCR\SystemFileAssociations\.tif\Shell\3D Edit" /f',
+      option: "removeeditwithpaint3d",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'delete "HKCR\SystemFileAssociations\.tiff\Shell\3D Edit" /f',
+      option: "removeeditwithpaint3d",
+      runas: "currentUserElevated",
+    }
+
+  # Remove 'Share' from Context Menu
+  - !run: {
+      exe: "reg",
+      args: 'delete HKCR\*\shellex\ContextMenuHandlers\ModernSharing /f',
+      option: "removeshare",
+      runas: "currentUserElevated",
+    }
+  - !run: {
+      exe: "reg",
+      args: 'delete HKCR\AllFilesystemObjects\shellex\ContextMenuHandlers\ModernSharing /f',
+      option: "removeshare",
+      runas: "currentUserElevated",
+      showError: false,
+      showOutput: false,
+    }
+
